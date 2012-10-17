@@ -1,0 +1,84 @@
+#!/usr/bin/env ruby
+
+# Copyright 2012 Square Inc.
+#
+#    Licensed under the Apache License, Version 2.0 (the "License");
+#    you may not use this file except in compliance with the License.
+#    You may obtain a copy of the License at
+#
+#        http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+
+require 'optparse'
+require 'base64'
+require 'zlib'
+require 'yaml'
+
+require 'rubygems'
+require 'squash/uploader'
+require 'squash_ios_symbolicator'
+
+def git_revision(dir)
+  head = File.read(File.join(dir, '.git', 'HEAD')).chomp
+  if head =~ /^ref: (.+)$/
+    File.read(File.join(dir, '.git', $1)).chomp
+  else
+    raise "Couldn't determine current revision from #{head.inspect}"
+  end
+end
+
+project_dir = ENV['PROJECT_DIR']
+dsym_file   = nil
+options     = {}
+
+parser = OptionParser.new do |parser|
+  parser.banner = "Usage: symbolicate YOUR_API_HOST [options]"
+  parser.on('-o', '--open-timeout N', Integer, "HTTP connection open timeout") { |ot| options[:open_timeout] = ot }
+  parser.on('-r', '--read-timeout N', Integer, "HTTP connection data received timeout") { |rt| options[:read_timeout] = rt }
+  parser.on('-k', '--[no-]skip-verification', "Do not perform SSL peer verification") { |sv| options[:skip_verification] = sv }
+
+  parser.on('-d', '--dsym-file F', "Specify a custom dSYM file (default $DWARF_DSYM_FILE_NAME)") { |df| dsym_file = df }
+  parser.on('-p', '--project-dir F', "Specify a custom project directory (default $PROJECT_DIR)") { |pd| project_dir = pd }
+
+  parser.on('-h', '--help', "Show this message") { puts parser; exit }
+  parser.on('--version', "Display version number of this program") { puts "1.0.0"; exit }
+end
+parser.parse!(ARGV)
+
+if ARGV.size != 1
+  puts parser
+  exit 1
+end
+
+host = ARGV.shift
+
+if ENV['DWARF_DSYM_FOLDER_PATH'] && ENV['DWARF_DSYM_FILE_NAME']
+  dsym_file ||= File.join(ENV['DWARF_DSYM_FOLDER_PATH'], ENV['DWARF_DSYM_FILE_NAME'])
+else
+  unless dsym_file
+    puts parser
+    exit 1
+  end
+end
+
+sym   = Symbolicator.new(dsym_file, project_dir)
+archs = sym.architectures
+uuids = Hash.new
+archs.each do |arch, uuid|
+  uuids[uuid] = [sym.symbols(arch), sym.lines(arch)]
+end
+
+Squash::Uploader.new(host, options).transmit '/api/1.0/symbolication.json',
+                                             'symbolications' =>
+                                                 uuids.map do |uuid, (symbols, lines)|
+                                                   {
+                                                       'uuid'    => uuid,
+                                                       'symbols' => Base64.encode64(Zlib::Deflate.deflate(symbols.to_yaml)),
+                                                       'lines'   => Base64.encode64(Zlib::Deflate.deflate(lines.to_yaml))
+                                                   }
+                                                 end

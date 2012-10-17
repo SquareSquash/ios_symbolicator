@@ -1,0 +1,1 @@
+UUID: 4ACE372B-AA78-37CD-8B88-500471BDC913 (i386) SquashTester.app.dSYM/Contents/Resources/DWARF/SquashTester
