@@ -16,7 +16,7 @@
 # {Symbols} aggregation. The file and line where the symbol is declared is also
 # included.
 
-Squash::Symbolicator::Symbol = Struct.new(:start_address, :end_address, :file, :line, :method)
+Squash::Symbolicator::Symbol = Struct.new(:start_address, :end_address, :file, :line, :ios_method)
 
 Squash::Symbolicator::Symbol.send(:define_method, :<=>) do |other|
   raise ArgumentError unless other.kind_of?(Squash::Symbolicator::Symbol)

@@ -30,25 +30,25 @@ describe Squash::Symbolicator::Symbols do
       @symbols[0].end_address.should eql(5)
       @symbols[0].file.should eql('file3')
       @symbols[0].line.should eql(3)
-      @symbols[0].method.should eql('meth3')
+      @symbols[0].ios_method.should eql('meth3')
 
       @symbols[1].start_address.should eql(1)
       @symbols[1].end_address.should eql(10)
       @symbols[1].file.should eql('file2')
       @symbols[1].line.should eql(2)
-      @symbols[1].method.should eql('meth2')
+      @symbols[1].ios_method.should eql('meth2')
 
       @symbols[2].start_address.should eql(7)
       @symbols[2].end_address.should eql(15)
       @symbols[2].file.should eql('file4')
       @symbols[2].line.should eql(4)
-      @symbols[2].method.should eql('meth4')
+      @symbols[2].ios_method.should eql('meth4')
 
       @symbols[3].start_address.should eql(10)
       @symbols[3].end_address.should eql(20)
       @symbols[3].file.should eql('file1')
       @symbols[3].line.should eql(1)
-      @symbols[3].method.should eql('meth1')
+      @symbols[3].ios_method.should eql('meth1')
     end
   end
 
@@ -66,7 +66,7 @@ describe Squash::Symbolicator::Symbols do
       @symbols.for(4).end_address.should eql(5)
       @symbols.for(4).file.should eql('file3')
       @symbols.for(4).line.should eql(3)
-      @symbols.for(4).method.should eql('meth3')
+      @symbols.for(4).ios_method.should eql('meth3')
     end
 
     it "should return nil for unknown addresses" do

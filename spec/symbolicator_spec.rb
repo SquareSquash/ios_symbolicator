@@ -39,7 +39,7 @@ describe Squash::Symbolicator do
       sym.should_not be_nil
       sym.file.should eql('SquashTester/STViewController.m')
       sym.line.should eql(50)
-      sym.method.should eql("-[STViewController boomSignal:]")
+      sym.ios_method.should eql("-[STViewController boomSignal:]")
       sym.start_address.should eql('0x00002ea0'.hex)
       sym.end_address.should eql('0x00002ee7'.hex)
     end
