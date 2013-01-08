@@ -5,14 +5,14 @@
 
 Gem::Specification.new do |s|
   s.name = "squash_ios_symbolicator"
-  s.version = "1.0.1"
+  s.version = "1.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tim Morgan"]
-  s.date = "2013-01-04"
+  s.date = "2013-01-08"
   s.description = "This gem includes a library that imports dwarfdump symbolications, and a binary that uploads the data to Squash."
   s.email = "tim@squareup.com"
-  s.executables = ["squash_release", "symbolicate"]
+  s.executables = ["symbolicate", "squash_release"]
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.md"
@@ -37,6 +37,7 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<plist>, [">= 0"])
+      s.add_runtime_dependency(%q<serialbox>, [">= 0"])
       s.add_runtime_dependency(%q<squash_uploader>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 0"])
       s.add_development_dependency(%q<yard>, [">= 0"])
@@ -44,6 +45,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<jeweler>, [">= 0"])
     else
       s.add_dependency(%q<plist>, [">= 0"])
+      s.add_dependency(%q<serialbox>, [">= 0"])
       s.add_dependency(%q<squash_uploader>, [">= 0"])
       s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<yard>, [">= 0"])
@@ -52,6 +54,7 @@ Gem::Specification.new do |s|
     end
   else
     s.add_dependency(%q<plist>, [">= 0"])
+    s.add_dependency(%q<serialbox>, [">= 0"])
     s.add_dependency(%q<squash_uploader>, [">= 0"])
     s.add_dependency(%q<rspec>, [">= 0"])
     s.add_dependency(%q<yard>, [">= 0"])
