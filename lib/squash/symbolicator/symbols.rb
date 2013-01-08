@@ -12,18 +12,27 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
+Squash::Symbolicator::Symbol = Struct.new(:start_address, :end_address, :file, :line, :ios_method)
+
 # An address ranged mapped to a symbol (method or function name), as part of a
 # {Symbols} aggregation. The file and line where the symbol is declared is also
 # included.
 
-Squash::Symbolicator::Symbol = Struct.new(:start_address, :end_address, :file, :line, :ios_method)
+class Squash::Symbolicator::Symbol
+  include SerialBox
+  serialize_with :JSON
+  serialize_fields do |s|
+    s.serialize :start_address, :end_address, :file, :line, :ios_method
+  end
 
-Squash::Symbolicator::Symbol.send(:define_method, :<=>) do |other|
-  raise ArgumentError unless other.kind_of?(Squash::Symbolicator::Symbol)
-  if start_address == other.start_address
-    end_address <=> other.end_address
-  else
-    start_address <=> other.start_address
+  # @private
+  def <=>(other)
+    raise ArgumentError unless other.kind_of?(Squash::Symbolicator::Symbol)
+    if start_address == other.start_address
+      end_address <=> other.end_address
+    else
+      start_address <=> other.start_address
+    end
   end
 end
 
@@ -32,6 +41,10 @@ end
 
 class Squash::Symbolicator::Symbols
   include Enumerable
+
+  include SerialBox
+  serialize_with :JSON
+  serialize_fields { |s| s.serialize :@symbols }
 
   # Creates a new empty aggregation.
 

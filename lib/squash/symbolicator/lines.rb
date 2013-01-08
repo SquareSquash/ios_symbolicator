@@ -12,14 +12,25 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-# An address ranged mapped to a specific line of code, as part of a {Lines}
-# aggregation. No symbol data is included.
+require 'serialbox'
 
 Squash::Symbolicator::Line = Struct.new(:start_address, :file, :line, :column)
 
-Squash::Symbolicator::Line.send(:define_method, :<=>) do |other|
-  raise ArgumentError unless other.kind_of?(Squash::Symbolicator::Line)
-  start_address <=> other.start_address
+# An address ranged mapped to a specific line of code, as part of a {Lines}
+# aggregation. No symbol data is included.
+
+class Squash::Symbolicator::Line
+  include SerialBox
+  serialize_with :JSON
+  serialize_fields do |s|
+    s.serialize :start_address, :file, :line, :column
+  end
+
+  # @private
+  def <=>(other)
+    raise ArgumentError unless other.kind_of?(Squash::Symbolicator::Line)
+    start_address <=> other.start_address
+  end
 end
 
 # An aggregation of the `Symbolicator::Line`s of a binary class. This class
@@ -27,6 +38,10 @@ end
 
 class Squash::Symbolicator::Lines
   include Enumerable
+
+  include SerialBox
+  serialize_with :JSON
+  serialize_fields { |s| s.serialize :@lines }
 
   # Creates a new empty aggregation.
 
