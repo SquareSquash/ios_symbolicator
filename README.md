@@ -38,6 +38,13 @@ This gem uses `dwarfdump` to perform its symbolication. You'll therefore need
 the Xcode Command Line tools installed on the machine that will be performing
 the symbolication upload.
 
+If you wish to use the symbolication tools provided in your own Ruby program,
+you will need to add this gem to your Gemfile:
+
+```` ruby
+gem 'squash_ios_symbolicator', :require => 'squash/symbolicator'
+````
+
 Usage
 -----
 
