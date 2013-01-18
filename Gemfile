@@ -2,7 +2,7 @@ source :rubygems
 
 gem 'plist'
 gem 'serialbox'
-gem 'squash_uploader', :require => nil
+gem 'squash_uploader', '>= 1.0.1', :require => nil
 
 group :development do
   gem 'rspec'
