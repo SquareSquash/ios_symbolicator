@@ -75,10 +75,10 @@ end
 
 Squash::Uploader.new(host, options).transmit '/api/1.0/symbolication.json',
                                              'symbolications' =>
-                                                 uuids.map do |uuid, (symbols, lines)|
+                                                 uuids.map { |uuid, (symbols, lines)|
                                                    {
                                                        'uuid'    => uuid,
                                                        'symbols' => Base64.encode64(Zlib::Deflate.deflate(symbols.to_yaml)),
                                                        'lines'   => Base64.encode64(Zlib::Deflate.deflate(lines.to_yaml))
                                                    }
-                                                 end
+                                                 }
