@@ -1,1 +1,1 @@
-UUID: 4ACE372B-AA78-37CD-8B88-500471BDC913 (i386) SquashTester.app.dSYM/Contents/Resources/DWARF/SquashTester
+UUID: 8436FEF6-2A0C-3395-91A5-55E7F5F1E6A2 (i386) /Users/tim/Library/Developer/Xcode/DerivedData/SquashTester-athjtfeumtspwafcxilissgmebzn/Build/Products/Debug-iphonesimulator/SquashTester.app.dSYM/Contents/Resources/DWARF/SquashTester

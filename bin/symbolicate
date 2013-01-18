@@ -21,7 +21,7 @@ require 'yaml'
 
 require 'rubygems'
 require 'squash/uploader'
-require 'squash_ios_symbolicator'
+require 'squash/symbolicator'
 
 def git_revision(dir)
   head = File.read(File.join(dir, '.git', 'HEAD')).chomp
@@ -66,7 +66,7 @@ else
   end
 end
 
-sym   = Symbolicator.new(dsym_file, project_dir)
+sym   = Squash::Symbolicator.new(dsym_file, project_dir)
 archs = sym.architectures
 uuids = Hash.new
 archs.each do |arch, uuid|

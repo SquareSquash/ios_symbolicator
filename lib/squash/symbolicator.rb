@@ -78,6 +78,7 @@ module Squash
 
             current_subprogram[tag] = value
           elsif line =~ /^0x[0-9a-f]+:\s+TAG_(\w+)/
+            next unless %w(low_pc high_pc decl_file decl_line name).all? { |k| current_subprogram.include? k }
             current_subprogram['decl_file'].sub!(/^#{Regexp.escape @project_dir}\//, '') if @project_dir
             symbolications.add current_subprogram['low_pc'],
                                current_subprogram['high_pc'],
