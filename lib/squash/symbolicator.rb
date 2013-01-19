@@ -40,7 +40,7 @@ module Squash
 
       stdin, stdout, stderr = Open3.popen3('dwarfdump', '-u', @dsym)
       stdout.each_line do |line|
-        if line =~ /^UUID: ([0-9A-F\-]+) \((.+?)\) [^\s]+$/
+        if line =~ /^UUID: ([0-9A-F\-]+) \((.+?)\)/
           architectures[$2] = $1
         end
       end
