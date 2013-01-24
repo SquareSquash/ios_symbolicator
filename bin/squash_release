@@ -28,12 +28,14 @@ def git_revision(dir)
   end
 end
 
-infoplist = Plist.parse_xml(ENV['INFOPLIST_FILE'])
+infoplist = Plist.parse_xml(ENV['INFOPLIST_FILE']) if ENV['INFOPLIST_FILE']
 
-project_dir = Dir.getwd
+project_dir = ENV['PROJECT_DIR'] || Dir.getwd
 revision    = nil
-build       = infoplist['CFBundleVersion']
-version     = infoplist['CFBundleShortVersionString']
+if infoplist
+  build       = infoplist['CFBundleVersion']
+  version     = infoplist['CFBundleShortVersionString']
+end
 options     = {:success => [Net::HTTPSuccess, 422]}
 
 parser = OptionParser.new do |parser|
@@ -52,7 +54,7 @@ parser = OptionParser.new do |parser|
 end
 parser.parse!(ARGV)
 
-if ARGV.size != 3
+if ARGV.size != 3 || !build || !version
   puts parser
   exit 1
 end
