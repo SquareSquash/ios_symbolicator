@@ -28,7 +28,8 @@ def git_revision(dir)
   end
 end
 
-infoplist = Plist.parse_xml(ENV['INFOPLIST_FILE']) if ENV['INFOPLIST_FILE']
+plist_path = File.join(ENV['PROJECT_DIR'], ENV['INFOPLIST_FILE']) if ENV['PROJECT_DIR'] && ENV['INFOPLIST_FILE']
+infoplist = Plist.parse_xml(plist_path) if plist_path
 
 project_dir = ENV['PROJECT_DIR'] || Dir.getwd
 revision    = nil
