@@ -24,31 +24,31 @@ describe Squash::Symbolicator::Symbols do
       @symbols.add 1, 5, 'file3', 3, 'meth3'
       @symbols.add 7, 15, 'file4', 4, 'meth4'
 
-      @symbols.size.should eql(4)
+      expect(@symbols.size).to eql(4)
 
-      @symbols[0].start_address.should eql(1)
-      @symbols[0].end_address.should eql(5)
-      @symbols[0].file.should eql('file3')
-      @symbols[0].line.should eql(3)
-      @symbols[0].ios_method.should eql('meth3')
+      expect(@symbols[0].start_address).to eql(1)
+      expect(@symbols[0].end_address).to eql(5)
+      expect(@symbols[0].file).to eql('file3')
+      expect(@symbols[0].line).to eql(3)
+      expect(@symbols[0].ios_method).to eql('meth3')
 
-      @symbols[1].start_address.should eql(1)
-      @symbols[1].end_address.should eql(10)
-      @symbols[1].file.should eql('file2')
-      @symbols[1].line.should eql(2)
-      @symbols[1].ios_method.should eql('meth2')
+      expect(@symbols[1].start_address).to eql(1)
+      expect(@symbols[1].end_address).to eql(10)
+      expect(@symbols[1].file).to eql('file2')
+      expect(@symbols[1].line).to eql(2)
+      expect(@symbols[1].ios_method).to eql('meth2')
 
-      @symbols[2].start_address.should eql(7)
-      @symbols[2].end_address.should eql(15)
-      @symbols[2].file.should eql('file4')
-      @symbols[2].line.should eql(4)
-      @symbols[2].ios_method.should eql('meth4')
+      expect(@symbols[2].start_address).to eql(7)
+      expect(@symbols[2].end_address).to eql(15)
+      expect(@symbols[2].file).to eql('file4')
+      expect(@symbols[2].line).to eql(4)
+      expect(@symbols[2].ios_method).to eql('meth4')
 
-      @symbols[3].start_address.should eql(10)
-      @symbols[3].end_address.should eql(20)
-      @symbols[3].file.should eql('file1')
-      @symbols[3].line.should eql(1)
-      @symbols[3].ios_method.should eql('meth1')
+      expect(@symbols[3].start_address).to eql(10)
+      expect(@symbols[3].end_address).to eql(20)
+      expect(@symbols[3].file).to eql('file1')
+      expect(@symbols[3].line).to eql(1)
+      expect(@symbols[3].ios_method).to eql('meth1')
     end
   end
 
@@ -62,15 +62,15 @@ describe Squash::Symbolicator::Symbols do
     end
 
     it "should return the symbol with the smallest matching range" do
-      @symbols.for(4).start_address.should eql(1)
-      @symbols.for(4).end_address.should eql(5)
-      @symbols.for(4).file.should eql('file3')
-      @symbols.for(4).line.should eql(3)
-      @symbols.for(4).ios_method.should eql('meth3')
+      expect(@symbols.for(4).start_address).to eql(1)
+      expect(@symbols.for(4).end_address).to eql(5)
+      expect(@symbols.for(4).file).to eql('file3')
+      expect(@symbols.for(4).line).to eql(3)
+      expect(@symbols.for(4).ios_method).to eql('meth3')
     end
 
     it "should return nil for unknown addresses" do
-      @symbols.for(235).should be_nil
+      expect(@symbols.for(235)).to be_nil
     end
   end
 end

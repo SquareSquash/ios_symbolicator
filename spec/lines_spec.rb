@@ -24,27 +24,27 @@ describe Squash::Symbolicator::Lines do
       @lines.add 1, 'file3', 3, 4
       @lines.add 20, 'file4', 4, 5
 
-      @lines.size.should eql(4)
+      expect(@lines.size).to eql(4)
 
-      @lines[0].start_address.should eql(1)
-      @lines[0].file.should eql('file3')
-      @lines[0].line.should eql(3)
-      @lines[0].column.should eql(4)
+      expect(@lines[0].start_address).to eql(1)
+      expect(@lines[0].file).to eql('file3')
+      expect(@lines[0].line).to eql(3)
+      expect(@lines[0].column).to eql(4)
 
-      @lines[1].start_address.should eql(10)
-      @lines[1].file.should eql('file2')
-      @lines[1].line.should eql(2)
-      @lines[1].column.should eql(3)
+      expect(@lines[1].start_address).to eql(10)
+      expect(@lines[1].file).to eql('file2')
+      expect(@lines[1].line).to eql(2)
+      expect(@lines[1].column).to eql(3)
 
-      @lines[2].start_address.should eql(20)
-      @lines[2].file.should eql('file4')
-      @lines[2].line.should eql(4)
-      @lines[2].column.should eql(5)
+      expect(@lines[2].start_address).to eql(20)
+      expect(@lines[2].file).to eql('file4')
+      expect(@lines[2].line).to eql(4)
+      expect(@lines[2].column).to eql(5)
 
-      @lines[3].start_address.should eql(30)
-      @lines[3].file.should eql('file1')
-      @lines[3].line.should eql(1)
-      @lines[3].column.should eql(2)
+      expect(@lines[3].start_address).to eql(30)
+      expect(@lines[3].file).to eql('file1')
+      expect(@lines[3].line).to eql(1)
+      expect(@lines[3].column).to eql(2)
     end
   end
 
@@ -58,22 +58,22 @@ describe Squash::Symbolicator::Lines do
     end
 
     it "should return the line with the smallest matching range" do
-      @lines.for(4).start_address.should eql(1)
-      @lines.for(4).file.should eql('file2')
-      @lines.for(4).line.should eql(2)
-      @lines.for(4).column.should eql(3)
+      expect(@lines.for(4).start_address).to eql(1)
+      expect(@lines.for(4).file).to eql('file2')
+      expect(@lines.for(4).line).to eql(2)
+      expect(@lines.for(4).column).to eql(3)
     end
 
     it "should return nil for unknown addresses" do
-      @lines.for(2356).should be_nil
+      expect(@lines.for(2356)).to be_nil
     end
 
     it "should return the last line for the highest address" do
-      @lines.for(715).file.should eql('file4')
+      expect(@lines.for(715).file).to eql('file4')
     end
 
     it "should return nil for an empty object" do
-      Squash::Symbolicator::Lines.new.for(15).should be_nil
+      expect(Squash::Symbolicator::Lines.new.for(15)).to be_nil
     end
   end
 end

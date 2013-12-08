@@ -1,46 +1,78 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (3.2.13)
-      i18n (= 0.6.1)
+    activesupport (3.2.16)
+      i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
-    diff-lcs (1.2.2)
-    git (1.2.5)
-    i18n (0.6.1)
-    jeweler (1.8.4)
+    addressable (2.3.5)
+    builder (3.2.2)
+    diff-lcs (1.2.5)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
+    git (1.2.6)
+    github_api (0.10.1)
+      addressable
+      faraday (~> 0.8.1)
+      hashie (>= 1.2)
+      multi_json (~> 1.4)
+      nokogiri (~> 1.5.2)
+      oauth2
+    hashie (2.0.5)
+    highline (1.6.20)
+    httpauth (0.2.0)
+    i18n (0.6.9)
+    jeweler (1.8.8)
+      builder
       bundler (~> 1.0)
       git (>= 1.2.5)
+      github_api (= 0.10.1)
+      highline (>= 1.6.15)
+      nokogiri (= 1.5.10)
       rake
       rdoc
-    json (1.7.7)
-    multi_json (1.7.2)
+    json (1.8.1)
+    jwt (0.1.8)
+      multi_json (>= 1.5)
+    multi_json (1.8.2)
+    multi_xml (0.5.5)
+    multipart-post (1.2.0)
+    nokogiri (1.5.10)
+    oauth2 (0.9.2)
+      faraday (~> 0.8)
+      httpauth (~> 0.2)
+      jwt (~> 0.1.4)
+      multi_json (~> 1.0)
+      multi_xml (~> 0.5)
+      rack (~> 1.2)
     plist (3.1.0)
-    rake (10.0.4)
+    rack (1.5.2)
+    rake (10.1.0)
     rdoc (4.0.1)
       json (~> 1.4)
-    redcarpet (2.2.2)
-    rspec (2.13.0)
-      rspec-core (~> 2.13.0)
-      rspec-expectations (~> 2.13.0)
-      rspec-mocks (~> 2.13.0)
-    rspec-core (2.13.1)
-    rspec-expectations (2.13.0)
+    redcarpet (2.3.0)
+    rspec (2.14.1)
+      rspec-core (~> 2.14.0)
+      rspec-expectations (~> 2.14.0)
+      rspec-mocks (~> 2.14.0)
+    rspec-core (2.14.7)
+    rspec-expectations (2.14.4)
       diff-lcs (>= 1.1.3, < 2.0)
-    rspec-mocks (2.13.1)
+    rspec-mocks (2.14.4)
     serialbox (1.0.0)
       activesupport
       json
     squash_uploader (1.0.1)
       json
-    yard (0.8.5.2)
+    yard (0.8.7.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  activesupport (< 4.0.0)
   jeweler
   plist
-  redcarpet
+  redcarpet (< 3.0.0)
   rspec
   serialbox
   squash_uploader (>= 1.0.1)
